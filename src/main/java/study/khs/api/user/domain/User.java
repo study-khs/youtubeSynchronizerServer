@@ -1,4 +1,4 @@
-package study.khs.api.member.domain;
+package study.khs.api.user.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Member {
+public class User {
 
 	@Id
 	private String id;

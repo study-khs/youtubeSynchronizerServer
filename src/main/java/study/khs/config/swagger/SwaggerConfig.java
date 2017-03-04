@@ -35,7 +35,7 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket memberApi() {
-		String apiName = "member-api";
+		String apiName = "user-api";
 
 		ApiInfo apiInfo = new ApiInfoBuilder()//
 				.title(apiName)//
@@ -47,7 +47,7 @@ public class SwaggerConfig {
 				.apiInfo(apiInfo)//
 				.select()//
 				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
-				.paths(PathSelectors.ant("/api/member/**"))//
+				.paths(PathSelectors.ant("/api/user/**"))//
 				.build();
 	}
 
