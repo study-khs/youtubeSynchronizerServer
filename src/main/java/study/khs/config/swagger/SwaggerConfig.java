@@ -17,55 +17,26 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket messageApi() {
-		String apiName = "Message Api";
-
-		ApiInfo apiInfo = new ApiInfoBuilder()//
-				.title(apiName)//
-				.description(apiName.concat(" 확인페이지"))//
-				.build();
-
-		return new Docket(DocumentationType.SWAGGER_2)//
-				.apiInfo(apiInfo)//
-				.groupName(apiName)//
-				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
-				.paths(PathSelectors.ant("/api/message/**"))//
-				.build();
+		return new Docket(DocumentationType.SWAGGER_2).groupName("message").select()
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api")).paths(PathSelectors.ant("/api/message/**"))
+				.build().apiInfo(apiInfo());
 	}
 
 	@Bean
 	public Docket memberApi() {
-		String apiName = "Member Api";
-
-		ApiInfo apiInfo = new ApiInfoBuilder()//
-				.title(apiName)//
-				.description(apiName.concat(" 확인페이지"))//
-				.build();
-
-		return new Docket(DocumentationType.SWAGGER_2)//
-				.apiInfo(apiInfo)//
-				.groupName(apiName)//
-				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
-				.paths(PathSelectors.ant("/api/member/**"))//
-				.build();
+		return new Docket(DocumentationType.SWAGGER_2).groupName("member").select()
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api")).paths(PathSelectors.ant("/api/member/**"))
+				.build().apiInfo(apiInfo());
 	}
 
 	@Bean
 	public Docket channelApi() {
-		String apiName = "Channel Api";
+		return new Docket(DocumentationType.SWAGGER_2).groupName("channel").select()
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api")).paths(PathSelectors.ant("/api/channel/**"))
+				.build().apiInfo(apiInfo());
+	}
 
-		ApiInfo apiInfo = new ApiInfoBuilder()//
-				.title(apiName)//
-				.description(apiName.concat(" 확인페이지"))//
-				.build();
-
-		return new Docket(DocumentationType.SWAGGER_2)//
-				.apiInfo(apiInfo)//
-				.groupName(apiName)//
-				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
-				.paths(PathSelectors.ant("/api/member/**"))//
-				.build();
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title("API SPEC 확인 페이지").description("API SPEC을 확인하기 위한 페이지입니다").build();
 	}
 }
