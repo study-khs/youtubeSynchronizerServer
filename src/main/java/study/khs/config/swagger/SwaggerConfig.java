@@ -17,26 +17,55 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket messageApi() {
-		return new Docket(DocumentationType.SWAGGER_2).groupName("message").select()
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api")).paths(PathSelectors.ant("/api/message/**"))
-				.build().apiInfo(apiInfo());
+		String apiName = "message-api";
+
+		ApiInfo apiInfo = new ApiInfoBuilder()//
+				.title(apiName)//
+				.description(apiName.concat(" 확인 페이지"))//
+				.build();
+
+		return new Docket(DocumentationType.SWAGGER_2)//
+				.groupName(apiName)//
+				.apiInfo(apiInfo)//
+				.select()//
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
+				.paths(PathSelectors.ant("/api/message/**"))//
+				.build();
 	}
 
 	@Bean
 	public Docket memberApi() {
-		return new Docket(DocumentationType.SWAGGER_2).groupName("member").select()
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api")).paths(PathSelectors.ant("/api/member/**"))
-				.build().apiInfo(apiInfo());
+		String apiName = "member-api";
+
+		ApiInfo apiInfo = new ApiInfoBuilder()//
+				.title(apiName)//
+				.description(apiName.concat(" 확인 페이지"))//
+				.build();
+
+		return new Docket(DocumentationType.SWAGGER_2)//
+				.groupName(apiName)//
+				.apiInfo(apiInfo)//
+				.select()//
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
+				.paths(PathSelectors.ant("/api/member/**"))//
+				.build();
 	}
 
 	@Bean
 	public Docket channelApi() {
-		return new Docket(DocumentationType.SWAGGER_2).groupName("channel").select()
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api")).paths(PathSelectors.ant("/api/channel/**"))
-				.build().apiInfo(apiInfo());
-	}
+		String apiName = "channel-api";
 
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("API SPEC 확인 페이지").description("API SPEC을 확인하기 위한 페이지입니다").build();
+		ApiInfo apiInfo = new ApiInfoBuilder()//
+				.title(apiName)//
+				.description(apiName.concat(" 확인 페이지"))//
+				.build();
+
+		return new Docket(DocumentationType.SWAGGER_2)//
+				.groupName(apiName)//
+				.apiInfo(apiInfo)//
+				.select()//
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
+				.paths(PathSelectors.ant("/api/channel/**"))//
+				.build();
 	}
 }
