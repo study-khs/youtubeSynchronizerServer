@@ -32,7 +32,7 @@ public class MessageController {
 
 		log.info("getAllMessage");
 
-		Page<Message> page = messagePagingAndSortingRepository.findAll(new PageRequest(1,20));
+		Page<Message> page = messagePagingAndSortingRepository.findAll(new PageRequest(0,20));
 		List<Message> messages = page.getContent();
 
 		log.info("getMessage message=[{}]", messages);
