@@ -16,5 +16,4 @@ public class InvalidAccessException extends CommonException {
 	public InvalidAccessException(String code, String message) {
 		super(code, message);
 	}
-
 }

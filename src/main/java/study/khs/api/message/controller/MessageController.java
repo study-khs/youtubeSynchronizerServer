@@ -2,20 +2,18 @@ package study.khs.api.message.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import study.khs.api.message.domain.Message;
-import study.khs.api.message.repository.MessagePagingAndSortingRepository;
-import study.khs.api.message.repository.MessageRepository;
-
-import java.util.List;
+import study.khs.api.message.service.MessageService;
+import study.khs.common.dto.PageDto;
 
 @Slf4j
 @RestController
@@ -23,64 +21,72 @@ import java.util.List;
 public class MessageController {
 
 	@Autowired
-	private MessageRepository messageRepository;
-    @Autowired
-    private MessagePagingAndSortingRepository messagePagingAndSortingRepository;
-
-	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody List<Message> getAllMessage() {
-
-		log.info("getAllMessage");
-
-		Page<Message> page = messagePagingAndSortingRepository.findAll(new PageRequest(0,20));
-		List<Message> messages = page.getContent();
-
-		log.info("getMessage message=[{}]", messages);
-
-		return messages;
-	}
+	private MessageService messageService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody Message getMessage(@PathVariable String id) {
+	public @ResponseBody Message getMessage(@PathVariable Long id) {
 
 		log.info("getMessage id=[{}]", id);
 
-		Message message = messageRepository.findOne(id);
+		Message message = messageService.selectMessage(id);
 
 		log.info("getMessage message=[{}]", message);
 
 		return message;
 	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public @ResponseBody PageDto<Message> getMessageList(//
+			@RequestParam(defaultValue = "1") Integer page, //
+			@RequestParam(defaultValue = "10") Integer size) {
+
+		log.info("getMessageList page=[{}] size=[{}]", page, size);
+
+		Page<Message> messagePage = messageService.selectMessagePage(page, size);
+
+		PageDto<Message> messagePageDto = PageDto.<Message>builder()//
+				.page(page)//
+				.size(size)//
+				.hasNext(messagePage.hasNext())//
+				.content(messagePage.getContent())//
+				.build();
+
+		log.info("getMessageList messagePageDto=[{}]", messagePageDto);
+
+		return messagePageDto;
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody Message postMessage(@RequestBody Message message) {
+	public @ResponseBody Message createMessage(@RequestBody String text) {
 
-		log.info("postMessage message=[{}]", message);
+		log.info("createMessage text=[{}]", text);
 
-		Message savedMessage = messageRepository.save(message);
+		Message message = messageService.createMessage(text);
 
-		log.info("postMessage savedMessage=[{}]", savedMessage);
+		log.info("createMessage message=[{}]", message);
 
-		return savedMessage;
+		return message;
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody Message putMessage(@RequestBody Message message) {
+	public @ResponseBody Message updateMessage(@RequestBody Message message) {
 
-		log.info("putMessage message=[{}]", message);
+		log.info("updateMessage message=[{}]", message);
 
-		Message savedMessage = messageRepository.save(message);
+		Message updatedMessage = messageService.updateMessage(message);
 
-		log.info("putMessage savedMessage=[{}]", savedMessage);
+		log.info("updateMessage updatedMessage=[{}]", updatedMessage);
 
-		return savedMessage;
+		return updatedMessage;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deleteMessage(@PathVariable String id) {
+	public void deleteMessage(@PathVariable Long id) {
 
 		log.info("deleteMessage id=[{}]", id);
 
-		messageRepository.delete(id);
+		messageService.deleteMessage(id);
+
+		return;
 	}
 }

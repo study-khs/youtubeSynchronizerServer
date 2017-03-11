@@ -2,7 +2,8 @@ package study.khs.common.constants;
 
 public enum SystemConstants {
 
-	INVALID_ACCESS("system", "1000", "권한이 없거나 인증이 유효하지 않습니다.");
+	INVALID_ACCESS("system", "1000", "권한이 없거나 인증이 유효하지 않습니다."), //
+	MESSAGE_NOT_EXIST("system", "2000", "메시지가 존재하지 않습니다.");
 
 	private String type;
 	private String code;
