@@ -17,6 +17,7 @@ public class MessageServiceImpl implements MessageService {
 	@Autowired
 	private MessageRepository messageRepository;
 
+	@Override
 	public Message selectMessage(Long id) {
 
 		log.info("selectMessage id=[{}]", id);
@@ -28,6 +29,7 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
+	@Override
 	public Page<Message> selectMessagePage(Integer page, Integer size) {
 
 		log.info("selectMessageList page=[{}], size=[{}]", page, size);
@@ -40,6 +42,7 @@ public class MessageServiceImpl implements MessageService {
 		return messagePage;
 	}
 
+	@Override
 	public Message createMessage(String text) {
 
 		log.info("createMessage text=[{}]", text);
@@ -51,6 +54,7 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
+	@Override
 	public Message updateMessage(Message message) {
 
 		log.info("updateMessage message=[{}]", message);
@@ -69,6 +73,7 @@ public class MessageServiceImpl implements MessageService {
 		}
 	}
 
+	@Override
 	public void deleteMessage(Long id) {
 
 		log.info("deleteMessage id=[{}]", id);
