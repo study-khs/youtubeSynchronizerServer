@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import study.khs.api.message.constants.UserType;
+import study.khs.api.authorization.dto.UserJoinRequestDto;
+import study.khs.api.user.constants.UserType;
 import study.khs.api.user.domain.User;
 import study.khs.api.user.dto.AuthorizationTokenDto;
 import study.khs.api.user.exception.UserLoginException;
 import study.khs.api.user.repository.UserRepository;
-import study.khs.common.dto.UserJoinRequestDto;
 
 @Slf4j
 @Service
@@ -40,12 +40,12 @@ public class UserServiceImpl implements UserService {
 
 		if (user == null || !user.getUserPassword().equals(userPassword)) {
 			throw new UserLoginException();
-		} else {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userId", user.getUserId());
-			map.put("userNickname", user.getUserNickname());
-			// 토큰 만들어서 반납
 		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", user.getUserId());
+		map.put("userNickname", user.getUserNickname());
+		// 토큰 만들어서 반납
 
 		return null;
 	}

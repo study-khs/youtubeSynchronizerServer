@@ -1,4 +1,4 @@
-package study.khs.api.message.constants;
+package study.khs.api.user.constants;
 
 public enum UserType {
 
@@ -18,7 +18,7 @@ public enum UserType {
 		return code;
 	}
 
-	public static UserType getType(Long id) {
+	public static UserType getEnum(Long id) {
 
 		UserType userType = null;
 		for (UserType item : UserType.values()) {

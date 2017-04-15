@@ -17,8 +17,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import study.khs.api.message.constants.UserType;
-import study.khs.common.dto.UserJoinRequestDto;
+import study.khs.api.authorization.dto.UserJoinRequestDto;
+import study.khs.api.user.constants.UserType;
 
 /**
  * User
@@ -85,7 +85,7 @@ public class User {
 	private String updatedBy;
 
 	public UserType getUserType() {
-		return UserType.getType(this.userType);
+		return UserType.getEnum(this.userType);
 	}
 
 	public void setUserType(UserType userType) {

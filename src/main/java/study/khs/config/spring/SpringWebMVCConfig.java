@@ -20,7 +20,8 @@ public class SpringWebMVCConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authorizationInterceptor())//
-				.addPathPatterns("/api/**");
+				.addPathPatterns("/api/**")//
+				.excludePathPatterns("/api/aa/**");
 	}
 
 	@Bean

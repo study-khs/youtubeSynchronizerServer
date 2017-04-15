@@ -1,8 +1,8 @@
-package study.khs.common.dto;
+package study.khs.api.authorization.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import study.khs.api.message.constants.UserType;
+import study.khs.api.user.constants.UserType;
 
 /**
  * UserJoinRequestDto

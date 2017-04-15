@@ -28,7 +28,7 @@ public class SwaggerConfig {
 				.groupName(apiName)//
 				.apiInfo(apiInfo)//
 				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api.message"))//
 				.paths(PathSelectors.ant("/api/message/**"))//
 				.build();
 	}
@@ -46,7 +46,7 @@ public class SwaggerConfig {
 				.groupName(apiName)//
 				.apiInfo(apiInfo)//
 				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api.user"))//
 				.paths(PathSelectors.ant("/api/user/**"))//
 				.build();
 	}
@@ -64,8 +64,25 @@ public class SwaggerConfig {
 				.groupName(apiName)//
 				.apiInfo(apiInfo)//
 				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api"))//
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api.channel"))//
 				.paths(PathSelectors.ant("/api/channel/**"))//
+				.build();
+	}
+
+	@Bean
+	public Docket authorizationApi() {
+		String apiName = "authorization-api";
+
+		ApiInfo apiInfo = new ApiInfoBuilder()//
+				.title(apiName)//
+				.description(apiName.concat(" 확인 페이지"))//
+				.build();
+
+		return new Docket(DocumentationType.SWAGGER_2)//
+				.groupName(apiName)//
+				.apiInfo(apiInfo)//
+				.select()//
+				.apis(RequestHandlerSelectors.basePackage("study.khs.api.authorization"))//
 				.build();
 	}
 }
