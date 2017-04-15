@@ -1,8 +1,8 @@
-package study.khs.common.servie;
+package study.khs.api.authorization.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import study.khs.common.domain.AuthorizationUserInfo;
+import study.khs.api.authorization.domain.AuthorizationUserInfo;
 
 public interface AuthorizationUserInfoService {
 

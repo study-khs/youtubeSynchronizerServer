@@ -1,4 +1,4 @@
-package study.khs.common.domain;
+package study.khs.api.authorization.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,7 +9,7 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class AuthorizationUserInfo {
 
-	private String id;
+	private Long userId;
 
-	private String username;
+	private String userNickname;
 }

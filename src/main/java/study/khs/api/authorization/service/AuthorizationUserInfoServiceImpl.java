@@ -1,4 +1,4 @@
-package study.khs.common.servie;
+package study.khs.api.authorization.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
+import study.khs.api.authorization.domain.AuthorizationUserInfo;
 import study.khs.api.user.domain.User;
 import study.khs.api.user.repository.UserRepository;
 import study.khs.common.constants.ValueConstants;
-import study.khs.common.domain.AuthorizationUserInfo;
 
 @Slf4j
 @Service
@@ -25,7 +25,7 @@ public class AuthorizationUserInfoServiceImpl implements AuthorizationUserInfoSe
 	@Autowired
 	@Qualifier("objectMapper")
 	private ObjectMapper objectMapper;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -34,11 +34,11 @@ public class AuthorizationUserInfoServiceImpl implements AuthorizationUserInfoSe
 
 		String authorizationToken = request.getHeader(ValueConstants.AUTHORIZATION_TOKEN_NAME);
 
-		if(authorizationToken != null){
+		if (authorizationToken != null) {
 			authorizationToken = authorizationToken.replaceAll("'", "\"");
 			authorizationToken = authorizationToken.replaceAll("\\\\", "");
 		}
-		
+
 		AuthorizationUserInfo userInfo = new AuthorizationUserInfo();
 		if (authorizationToken != null) {
 			try {
@@ -49,15 +49,13 @@ public class AuthorizationUserInfoServiceImpl implements AuthorizationUserInfoSe
 				log.error("Invalid Token authorizationToken=[{}], Exception=[{}]", authorizationToken, exception);
 			}
 		}
-		
-		if(userInfo.getId() != null){
-			User user = userRepository.findOne(userInfo.getId());
-			if(user != null){
-				// userInfo 세팅
+
+		if (userInfo.getUserId() != null) {
+			User user = userRepository.findOne(userInfo.getUserId());
+			if (user != null) {
+				// 추가로 필요한 userInfo 세팅, 우리는 필요없을 듯
 			}
 		}
-
-		request.setAttribute(ValueConstants.AUTHORIZATION_USER_INFO, userInfo);
 
 		return userInfo;
 	}

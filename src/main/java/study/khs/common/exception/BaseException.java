@@ -6,19 +6,19 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @SuppressWarnings("serial")
-public class CommonException extends RuntimeException {
+public class BaseException extends RuntimeException {
 
 	private String code;
 
-	public CommonException() {
+	public BaseException() {
 	}
 
-	public CommonException(String code, String message) {
+	public BaseException(String code, String message) {
 		super(message);
 		this.code = code;
 	}
 
-	public CommonException(Throwable throwable) {
+	public BaseException(Throwable throwable) {
 		super(throwable);
 	}
 }

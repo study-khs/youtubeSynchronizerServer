@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import lombok.extern.slf4j.Slf4j;
-import study.khs.common.domain.AuthorizationUserInfo;
-import study.khs.common.servie.AuthorizationUserInfoService;
+import study.khs.api.authorization.domain.AuthorizationUserInfo;
+import study.khs.api.authorization.service.AuthorizationUserInfoService;
+import study.khs.common.constants.ValueConstants;
 
 @Slf4j
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
@@ -21,6 +22,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 
 		AuthorizationUserInfo userInfo = authorizationUserInfoService.getUserInfo(request);
+		request.setAttribute(ValueConstants.AUTHORIZATION_ID, userInfo.getUserId());
+		request.setAttribute(ValueConstants.AUTHORIZATION_USER_INFO, userInfo);
 
 		log.info("access=[{}], remoteAddress=[{}], userInfo=[{}], referer=[{}], userAgent=[{}]",
 				new Object[] { //
@@ -31,7 +34,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 						request.getHeader("User-Agent")//
 				});
 
-		if (userInfo.getId() == null) {
+		if (userInfo.getUserId() == null) {
 			// throw new InvalidAccessException();
 		}
 

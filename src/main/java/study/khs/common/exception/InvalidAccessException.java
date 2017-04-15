@@ -3,7 +3,7 @@ package study.khs.common.exception;
 import study.khs.common.constants.SystemConstants;
 
 @SuppressWarnings("serial")
-public class InvalidAccessException extends CommonException {
+public class InvalidAccessException extends BaseException {
 
 	public InvalidAccessException() {
 		this(SystemConstants.INVALID_ACCESS.getCode(), SystemConstants.INVALID_ACCESS.getDesc());
