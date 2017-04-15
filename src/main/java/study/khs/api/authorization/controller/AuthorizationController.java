@@ -75,7 +75,7 @@ public class AuthorizationController {
 	}
 
 	@ApiOperation(value = "페이스북 유저 로그인하기", notes = "페이스북 유저 로그인하기")
-	@RequestMapping(value = "/loginWithFacebook", method = RequestMethod.GET)
+	@RequestMapping(value = "/login-with-facebook", method = RequestMethod.GET)
 	public ApiResponseDto<AuthorizationTokenDto> userLoginWithFacebook(@RequestHeader UserType userType,
 			@RequestHeader String token) {
 
@@ -100,7 +100,7 @@ public class AuthorizationController {
 	}
 
 	@ApiOperation(value = "네이버 유저 로그인하기", notes = "네이버 유저 로그인하기")
-	@RequestMapping(value = "/loginWithNaver", method = RequestMethod.GET)
+	@RequestMapping(value = "/login-with-naver", method = RequestMethod.GET)
 	public ApiResponseDto<AuthorizationTokenDto> userLoginWithNaver(@RequestHeader UserType userType,
 			@RequestHeader String token) {
 
