@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<property name="USER_HOME" value="/data01/logs/wasLog/logback/${container.name}" />
+	<springProfile name="!prod">
+		<property name="USER_HOME" value="/logs/wasLog/logback/${container.name}" />
+	</springProfile>
+
+	<springProfile name="prod">
+		<property name="USER_HOME" value="../../../logs/wasLog/logback/${container.name}" />
+	</springProfile>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
