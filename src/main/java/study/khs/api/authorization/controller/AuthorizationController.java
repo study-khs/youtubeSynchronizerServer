@@ -1,5 +1,8 @@
 package study.khs.api.authorization.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +13,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import study.khs.api.authorization.dto.UserJoinRequestDto;
 import study.khs.api.authorization.exception.UserJoinException;
+import study.khs.api.channel.dto.ChannelInfoDto;
 import study.khs.api.user.constants.UserType;
 import study.khs.api.user.dto.AuthorizationTokenDto;
+import study.khs.api.user.dto.UserInfoDto;
 import study.khs.api.user.service.UserService;
 import study.khs.common.dto.ApiResponseDto;
 
@@ -85,9 +90,9 @@ public class AuthorizationController {
 			throw new UserJoinException();
 		}
 
-		// AuthorizationTokenDto authorizationTokenDto =
-		// userService.loginWithFacebook(token);
-		AuthorizationTokenDto authorizationTokenDto = new AuthorizationTokenDto();
+		AuthorizationTokenDto authorizationTokenDto = userService.loginWithFacebook(token);
+		// AuthorizationTokenDto authorizationTokenDto = new
+		// AuthorizationTokenDto();
 
 		ApiResponseDto<AuthorizationTokenDto> responseDto = //
 				ApiResponseDto.<AuthorizationTokenDto>builder()//
@@ -120,6 +125,44 @@ public class AuthorizationController {
 						.build();
 
 		log.info("userLogin responseDto=[{}]", responseDto);
+
+		return responseDto;
+	}
+
+	@ApiOperation(value = "임시로 쓰는 채널 API 더미", notes = "임시로 쓰는 채널 API 더미")
+	@RequestMapping(value = "/dummy-channel", method = RequestMethod.GET)
+	public ApiResponseDto<ChannelInfoDto> dummyChannel() {
+
+		ChannelInfoDto channelInfoDto = new ChannelInfoDto();
+		channelInfoDto.setChannelId(1234567890L);
+		UserInfoDto channelManager = new UserInfoDto();
+		channelManager.setUserId(1L);
+		channelManager.setUserNickname("박정성방장");
+		channelInfoDto.setChannelManager(channelManager);
+		List<String> youtubeUrlList = new ArrayList<String>();
+		youtubeUrlList.add("https://www.youtube.com/watch?v=0rtV5esQT6I");
+		youtubeUrlList.add("https://www.youtube.com/watch?v=QslJYDX3o8s");
+		channelInfoDto.setYoutubeUrlList(youtubeUrlList);
+		ArrayList<UserInfoDto> memberList = new ArrayList<UserInfoDto>();
+		UserInfoDto member1 = new UserInfoDto();
+		member1.setUserId(2L);
+		member1.setUserNickname("박재영멤버");
+		memberList.add(member1);
+		UserInfoDto member2 = new UserInfoDto();
+		member2.setUserId(3L);
+		member2.setUserNickname("김영재멤버");
+		memberList.add(member2);
+		UserInfoDto member3 = new UserInfoDto();
+		member3.setUserId(4L);
+		member3.setUserNickname("김성식멤버");
+		memberList.add(member3);
+		channelInfoDto.setMemberList(memberList);
+		channelInfoDto.setActivated(true);
+
+		ApiResponseDto<ChannelInfoDto> responseDto = //
+				ApiResponseDto.<ChannelInfoDto>builder()//
+						.data(channelInfoDto)//
+						.build();
 
 		return responseDto;
 	}

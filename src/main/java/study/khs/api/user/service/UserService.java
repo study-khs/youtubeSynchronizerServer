@@ -10,4 +10,6 @@ public interface UserService {
 	User createUser(UserJoinRequestDto userJoinRequestDto);
 
 	AuthorizationTokenDto login(UserType userType, String userLoginId, String userPassword);
+
+	AuthorizationTokenDto loginWithFacebook(String token);
 }
