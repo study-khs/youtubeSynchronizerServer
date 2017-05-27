@@ -1,4 +1,4 @@
-package study.khs.api.authorization.dto;
+package study.khs.api.user.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

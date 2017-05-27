@@ -17,8 +17,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import study.khs.api.authorization.dto.UserJoinRequestDto;
 import study.khs.api.user.constants.UserType;
+import study.khs.api.user.dto.UserJoinRequestDto;
 
 /**
  * User
@@ -41,6 +41,14 @@ public class User {
 		this.userLoginId = userJoinRequestDto.getUserLoginId();
 		this.userPassword = userJoinRequestDto.getUserPassword();
 		this.userNickname = userJoinRequestDto.getUserNickname();
+	}
+
+	public User(UserType userType, String userLoginId, String userNickname) {
+		super();
+		this.userType = userType.getCode();
+		this.userLoginId = userLoginId;
+		this.userPassword = String.valueOf(userType.getCode());
+		this.userNickname = userNickname;
 	}
 
 	@ApiModelProperty(value = "User Id")

@@ -68,21 +68,4 @@ public class SwaggerConfig {
 				.paths(PathSelectors.ant("/api/channel/**"))//
 				.build();
 	}
-
-	@Bean
-	public Docket authorizationApi() {
-		String apiName = "authorization-api";
-
-		ApiInfo apiInfo = new ApiInfoBuilder()//
-				.title(apiName)//
-				.description(apiName.concat(" 확인 페이지"))//
-				.build();
-
-		return new Docket(DocumentationType.SWAGGER_2)//
-				.groupName(apiName)//
-				.apiInfo(apiInfo)//
-				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api.authorization"))//
-				.build();
-	}
 }

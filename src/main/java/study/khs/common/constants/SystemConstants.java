@@ -2,9 +2,13 @@ package study.khs.common.constants;
 
 public enum SystemConstants {
 
-	INVALID_ACCESS("Authorization", "1000", "권한이 없거나 인증이 유효하지 않습니다."), //
-	USER_JOIN_EXCEPTION("Authorization", "1100", "잘못된 인증 형식입니다"), //
-	USER_LOGIN_EXCEPTION("Authorization", "1200", "Id 또는 Password가 잘못되었습니다."), //
+	ERROR("System", "1000", "서버에서 에러가 발생했습니다."), //
+	INVALID_FORM("System", "1100", "잘못된 형식입니다."), //
+
+	INVALID_ACCESS("Authorization", "2000", "권한이 없거나 인증이 유효하지 않습니다."), //
+
+	USER_NOT_EXIST("User", "3000", "계정이 존재하지 않습니다."), //
+	WRONG_PASSWORD("User", "3100", "잘못된 비밀번호입니다."), //
 
 	MESSAGE_NOT_EXIST("message", "2000", "메시지가 존재하지 않습니다."),//
 
