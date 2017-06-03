@@ -31,7 +31,7 @@ public class UserController {
 
 	@ApiOperation(value = "일반 유저 가입하기", notes = "일반 유저 가입하기")
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public ApiResponseDto<Object> userJoin(UserJoinRequestDto userJoinRequestDto) {
+	public ApiResponseDto<Object> userJoin(@RequestBody UserJoinRequestDto userJoinRequestDto) {
 
 		log.info("userJoin userJoinRequestDto=[{}]", userJoinRequestDto);
 
