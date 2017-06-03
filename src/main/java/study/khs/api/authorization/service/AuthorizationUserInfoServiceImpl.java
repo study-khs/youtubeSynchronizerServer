@@ -23,7 +23,6 @@ import study.khs.common.constants.ValueConstants;
 public class AuthorizationUserInfoServiceImpl implements AuthorizationUserInfoService {
 
 	@Autowired
-	@Qualifier("objectMapper")
 	private ObjectMapper objectMapper;
 
 	@Autowired

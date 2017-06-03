@@ -16,7 +16,7 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 		ServletRequestAttributes requestAttributes = //
 				(ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpServletRequest request = requestAttributes.getRequest();
-		String id = (String) request.getAttribute(ValueConstants.AUTHORIZATION_TOKEN_NAME);
+		String id = (String) request.getAttribute(ValueConstants.AUDITOR);
 		if (id == null) {
 			id = String.valueOf(System.currentTimeMillis());
 		}

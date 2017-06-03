@@ -23,6 +23,6 @@ public class AuthorizationHandlerMethodArgumentResolver implements HandlerMethod
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
 		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-		return request.getAttribute(ValueConstants.AUTHORIZATION_USER_INFO);
+		return request.getAttribute(ValueConstants.USER_INFO);
 	}
 }

@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import study.khs.api.user.constants.UserType;
 import study.khs.api.user.domain.User;
+import study.khs.api.user.domain.UserInfo;
 import study.khs.api.user.dto.AuthorizationTokenDto;
 import study.khs.api.user.dto.UserJoinRequestDto;
 import study.khs.api.user.exception.UserNotExistException;
@@ -105,12 +106,12 @@ public class UserServiceImpl implements UserService {
 		}
 		authorizationToken = textEncryptor.encrypt(authorizationToken);
 
-		AuthorizationTokenDto tokenDto = new AuthorizationTokenDto();
-		tokenDto.setAuthorizationToken(authorizationToken);
+		AuthorizationTokenDto authorizationTokenDto = new AuthorizationTokenDto();
+		authorizationTokenDto.setAuthorizationToken(authorizationToken);
 
-		log.info("login tokenDto=[{}]", tokenDto);
+		log.info("login tokenDto=[{}]", authorizationTokenDto);
 
-		return tokenDto;
+		return authorizationTokenDto;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -177,11 +178,23 @@ public class UserServiceImpl implements UserService {
 		}
 		authorizationToken = textEncryptor.encrypt(authorizationToken);
 
-		AuthorizationTokenDto tokenDto = new AuthorizationTokenDto();
-		tokenDto.setAuthorizationToken(authorizationToken);
+		AuthorizationTokenDto authorizationTokenDto = new AuthorizationTokenDto();
+		authorizationTokenDto.setAuthorizationToken(authorizationToken);
 
-		log.info("loginWithSns tokenDto=[{}]", tokenDto);
+		log.info("loginWithSns tokenDto=[{}]", authorizationTokenDto);
 
-		return tokenDto;
+		return authorizationTokenDto;
+	}
+
+	public UserInfo getUserInfo(Long userId) {
+
+		log.info("viewUser userId=[{}]", userId);
+
+		User user = userRepository.findOne(userId);
+		UserInfo userInfo = new UserInfo(user);
+
+		log.info("viewUser userInfo=[{}]", userInfo);
+
+		return userInfo;
 	}
 }

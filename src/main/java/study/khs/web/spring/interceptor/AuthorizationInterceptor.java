@@ -22,8 +22,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 
 		AuthorizationUserInfo userInfo = authorizationUserInfoService.getUserInfo(request);
-		request.setAttribute(ValueConstants.AUTHORIZATION_ID, userInfo.getUserId());
-		request.setAttribute(ValueConstants.AUTHORIZATION_USER_INFO, userInfo);
+		request.setAttribute(ValueConstants.AUDITOR, userInfo.getUserId());
+		request.setAttribute(ValueConstants.USER_INFO, userInfo);
 
 		log.info("access=[{}], remoteAddress=[{}], userInfo=[{}], referer=[{}], userAgent=[{}]",
 				new Object[] { //
