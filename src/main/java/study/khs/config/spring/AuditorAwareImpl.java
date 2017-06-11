@@ -8,17 +8,17 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import study.khs.common.constants.ValueConstants;
 
-public class AuditorAwareImpl implements AuditorAware<String> {
+public class AuditorAwareImpl implements AuditorAware<Long> {
 
 	@Override
-	public String getCurrentAuditor() {
+	public Long getCurrentAuditor() {
 
 		ServletRequestAttributes requestAttributes = //
 				(ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpServletRequest request = requestAttributes.getRequest();
-		String id = (String) request.getAttribute(ValueConstants.AUDITOR);
+		Long id = (Long) request.getAttribute(ValueConstants.AUDITOR);
 		if (id == null) {
-			id = String.valueOf(System.currentTimeMillis());
+			id = System.currentTimeMillis();
 		}
 
 		return id;

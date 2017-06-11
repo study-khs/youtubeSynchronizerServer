@@ -5,12 +5,6 @@ import java.util.List;
 import lombok.Data;
 import study.khs.api.user.dto.UserInfoDto;
 
-/**
- * ChannelInfoDto
- * 
- * @author JSPark
- *
- */
 @Data
 public class ChannelInfoDto {
 

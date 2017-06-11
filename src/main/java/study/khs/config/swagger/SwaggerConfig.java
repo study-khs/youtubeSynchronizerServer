@@ -16,24 +16,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
 	@Bean
-	public Docket messageApi() {
-		String apiName = "message-api";
-
-		ApiInfo apiInfo = new ApiInfoBuilder()//
-				.title(apiName)//
-				.description(apiName.concat(" 확인 페이지"))//
-				.build();
-
-		return new Docket(DocumentationType.SWAGGER_2)//
-				.groupName(apiName)//
-				.apiInfo(apiInfo)//
-				.select()//
-				.apis(RequestHandlerSelectors.basePackage("study.khs.api.message"))//
-				.paths(PathSelectors.ant("/api/message/**"))//
-				.build();
-	}
-
-	@Bean
 	public Docket memberApi() {
 		String apiName = "user-api";
 

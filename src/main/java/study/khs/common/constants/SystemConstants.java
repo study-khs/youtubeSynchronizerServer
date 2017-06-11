@@ -9,6 +9,7 @@ public enum SystemConstants {
 
 	USER_NOT_EXIST("User", "3000", "계정이 존재하지 않습니다."), //
 	WRONG_PASSWORD("User", "3100", "잘못된 비밀번호입니다."), //
+	USER_ALREADY_EXIST("User", "3200", "계정이 이미 존재합니다."), //
 
 	MESSAGE_NOT_EXIST("message", "2000", "메시지가 존재하지 않습니다."),//
 

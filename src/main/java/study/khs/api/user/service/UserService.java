@@ -2,9 +2,9 @@ package study.khs.api.user.service;
 
 import study.khs.api.user.constants.UserType;
 import study.khs.api.user.domain.User;
-import study.khs.api.user.domain.UserInfo;
 import study.khs.api.user.dto.AuthorizationTokenDto;
 import study.khs.api.user.dto.UserJoinRequestDto;
+import study.khs.api.user.dto.UserUpdateRequestDto;
 
 public interface UserService {
 
@@ -16,5 +16,9 @@ public interface UserService {
 
 	AuthorizationTokenDto loginWithSns(UserType userType, String token);
 
-	UserInfo getUserInfo(Long userId);
+	User getUser(Long userId);
+
+	User updateUser(UserUpdateRequestDto userUpdateRequestDto);
+
+	void deleteUser(Long userId);
 }
