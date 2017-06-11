@@ -1,4 +1,4 @@
-package study.khs.api.authorization.service;
+package study.khs.api.user.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,32 +6,34 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.jasypt.util.text.TextEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import study.khs.api.authorization.domain.AuthorizationUserInfo;
 import study.khs.api.user.domain.User;
+import study.khs.api.user.domain.UserInfo;
 import study.khs.api.user.repository.UserRepository;
 import study.khs.common.constants.ValueConstants;
 
 @Slf4j
 @Service
-public class AuthorizationUserInfoServiceImpl implements AuthorizationUserInfoService {
+public class UserInfoServiceImpl implements UserInfoService {
 
 	@Autowired
-	@Qualifier("objectMapper")
+	private TextEncryptor textEncryptor;
+
+	@Autowired
 	private ObjectMapper objectMapper;
 
 	@Autowired
 	private UserRepository userRepository;
 
 	@SuppressWarnings("unchecked")
-	public AuthorizationUserInfo getUserInfo(HttpServletRequest request) {
-
+	@Override
+	public UserInfo getUserInfo(HttpServletRequest request) {
 		String authorizationToken = request.getHeader(ValueConstants.AUTHORIZATION_TOKEN_NAME);
 
 		if (authorizationToken != null) {
@@ -39,12 +41,12 @@ public class AuthorizationUserInfoServiceImpl implements AuthorizationUserInfoSe
 			authorizationToken = authorizationToken.replaceAll("\\\\", "");
 		}
 
-		AuthorizationUserInfo userInfo = new AuthorizationUserInfo();
+		UserInfo userInfo = new UserInfo();
 		if (authorizationToken != null) {
+			authorizationToken = textEncryptor.decrypt(authorizationToken);
 			try {
-				Map<String, Object> authorizationMap;
-				authorizationMap = objectMapper.readValue(authorizationToken, HashMap.class);
-				BeanUtils.populate(userInfo, authorizationMap);
+				Map<String, Object> userInfoMap = objectMapper.readValue(authorizationToken, HashMap.class);
+				BeanUtils.populate(userInfo, userInfoMap);
 			} catch (Exception exception) {
 				log.error("Invalid Token authorizationToken=[{}], Exception=[{}]", authorizationToken, exception);
 			}

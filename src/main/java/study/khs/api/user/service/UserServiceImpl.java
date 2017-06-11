@@ -24,6 +24,8 @@ import study.khs.api.user.constants.UserType;
 import study.khs.api.user.domain.User;
 import study.khs.api.user.dto.AuthorizationTokenDto;
 import study.khs.api.user.dto.UserJoinRequestDto;
+import study.khs.api.user.dto.UserUpdateRequestDto;
+import study.khs.api.user.exception.UserAlreadyExistException;
 import study.khs.api.user.exception.UserNotExistException;
 import study.khs.api.user.exception.WrongPasswordException;
 import study.khs.api.user.repository.UserRepository;
@@ -54,6 +56,13 @@ public class UserServiceImpl implements UserService {
 	public User createUser(UserJoinRequestDto userJoinRequestDto) {
 
 		log.info("createUser userJoinRequestDto=[{}]", userJoinRequestDto);
+
+		User user = userRepository.findOneByUserTypeAndUserLoginId(userJoinRequestDto.getUserType().getCode(),
+				userJoinRequestDto.getUserLoginId());
+
+		if (user != null) {
+			throw new UserAlreadyExistException();
+		}
 
 		String encodePassword = passwordEncoder.encode(userJoinRequestDto.getUserPassword());
 		userJoinRequestDto.setUserPassword(encodePassword);
@@ -105,12 +114,12 @@ public class UserServiceImpl implements UserService {
 		}
 		authorizationToken = textEncryptor.encrypt(authorizationToken);
 
-		AuthorizationTokenDto tokenDto = new AuthorizationTokenDto();
-		tokenDto.setAuthorizationToken(authorizationToken);
+		AuthorizationTokenDto authorizationTokenDto = new AuthorizationTokenDto();
+		authorizationTokenDto.setAuthorizationToken(authorizationToken);
 
-		log.info("login tokenDto=[{}]", tokenDto);
+		log.info("login tokenDto=[{}]", authorizationTokenDto);
 
-		return tokenDto;
+		return authorizationTokenDto;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -177,11 +186,54 @@ public class UserServiceImpl implements UserService {
 		}
 		authorizationToken = textEncryptor.encrypt(authorizationToken);
 
-		AuthorizationTokenDto tokenDto = new AuthorizationTokenDto();
-		tokenDto.setAuthorizationToken(authorizationToken);
+		AuthorizationTokenDto authorizationTokenDto = new AuthorizationTokenDto();
+		authorizationTokenDto.setAuthorizationToken(authorizationToken);
 
-		log.info("loginWithSns tokenDto=[{}]", tokenDto);
+		log.info("loginWithSns tokenDto=[{}]", authorizationTokenDto);
 
-		return tokenDto;
+		return authorizationTokenDto;
+	}
+
+	public User getUser(Long userId) {
+
+		log.info("getUser userId=[{}]", userId);
+
+		User user = userRepository.findOne(userId);
+
+		log.info("getUser user=[{}]", user);
+
+		return user;
+	}
+
+	public User updateUser(UserUpdateRequestDto userUpdateRequestDto) {
+
+		log.info("updateUser userUpdateRequestDto=[{}]", userUpdateRequestDto);
+
+		User user = userRepository.findOne(userUpdateRequestDto.getUserId());
+
+		if (user == null) {
+			log.info("updateUser user not exist userId=[{}]", userUpdateRequestDto.getUserId());
+			throw new UserNotExistException();
+		}
+
+		user.setUserNickname(userUpdateRequestDto.getUserNickname());
+		User savedUser = userRepository.save(user);
+
+		log.info("updateUser savedUser=[{}]", savedUser);
+
+		return savedUser;
+	}
+
+	public void deleteUser(Long userId) {
+
+		log.info("deleteUser userId=[{}]", userId);
+
+		if (!userRepository.exists(userId)) {
+			log.info("deleteUser user not exist userId=[{}]", userId);
+			throw new UserNotExistException();
+		}
+
+		userRepository.delete(userId);
+		return;
 	}
 }

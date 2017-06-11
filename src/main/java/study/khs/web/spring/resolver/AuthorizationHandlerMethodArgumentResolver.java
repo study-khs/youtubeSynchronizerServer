@@ -8,14 +8,14 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import study.khs.api.authorization.domain.AuthorizationUserInfo;
+import study.khs.api.user.domain.UserInfo;
 import study.khs.common.constants.ValueConstants;
 
 public class AuthorizationHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
-		return AuthorizationUserInfo.class.isAssignableFrom(parameter.getParameterType());
+		return UserInfo.class.isAssignableFrom(parameter.getParameterType());
 	}
 
 	@Override
@@ -23,6 +23,6 @@ public class AuthorizationHandlerMethodArgumentResolver implements HandlerMethod
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
 		HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-		return request.getAttribute(ValueConstants.AUTHORIZATION_USER_INFO);
+		return request.getAttribute(ValueConstants.USER_INFO);
 	}
 }

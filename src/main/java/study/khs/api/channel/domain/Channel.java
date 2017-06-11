@@ -16,12 +16,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * Channel
- * 
- * @author JSPark
- *
- */
 @Data
 @Entity
 public class Channel {
@@ -43,7 +37,7 @@ public class Channel {
 	@ApiModelProperty(hidden = true)
 	@CreatedBy
 	@Column(nullable = false)
-	private String createdBy;
+	private Long createdBy;
 
 	@ApiModelProperty(hidden = true)
 	@LastModifiedDate
@@ -53,5 +47,5 @@ public class Channel {
 	@ApiModelProperty(hidden = true)
 	@LastModifiedBy
 	@Column(nullable = false)
-	private String updatedBy;
+	private Long updatedBy;
 }

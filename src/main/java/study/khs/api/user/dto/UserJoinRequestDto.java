@@ -4,12 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import study.khs.api.user.constants.UserType;
 
-/**
- * UserJoinRequestDto
- * 
- * @author JSPark
- *
- */
 @Data
 public class UserJoinRequestDto {
 

@@ -20,12 +20,6 @@ import lombok.Data;
 import study.khs.api.user.constants.UserType;
 import study.khs.api.user.dto.UserJoinRequestDto;
 
-/**
- * User
- * 
- * @author JSPark
- *
- */
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -80,7 +74,7 @@ public class User {
 	@ApiModelProperty(hidden = true)
 	@CreatedBy
 	@Column(nullable = false)
-	private String createdBy;
+	private Long createdBy;
 
 	@ApiModelProperty(hidden = true)
 	@LastModifiedDate
@@ -90,7 +84,7 @@ public class User {
 	@ApiModelProperty(hidden = true)
 	@LastModifiedBy
 	@Column(nullable = false)
-	private String updatedBy;
+	private Long updatedBy;
 
 	public UserType getUserType() {
 		return UserType.getEnum(this.userType);
