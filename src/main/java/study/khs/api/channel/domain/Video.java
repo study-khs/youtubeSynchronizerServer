@@ -8,8 +8,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,40 +17,44 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import study.khs.api.channel.dto.ChannelCreateRequestDto;
 
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Channel {
+public class Video {
 
-	public Channel() {
-		super();
-	}
-
-	public Channel(ChannelCreateRequestDto channelCreateRequestDto) {
-		super();
-		this.channelManagerId = channelCreateRequestDto.getChannelManagerId();
-		this.channelTitle = channelCreateRequestDto.getChannelTitle();
-	}
-
-	@ApiModelProperty(value = "Channel Id")
+	@ApiModelProperty(value = "Video Id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long channelId;
+	private Long videoId;
 
-	@ApiModelProperty(value = "Channel Manager Id")
+	@ApiModelProperty(value = "Channel Id")
 	@Column(nullable = false)
-	private Long channelManagerId;
+	private String channelId;
 
-	@ApiModelProperty(value = "Channel Title")
+	@ApiModelProperty(value = "Youtube Id")
 	@Column(nullable = false)
-	private String channelTitle;
+	private String youtubeId;
 
-	@ApiModelProperty(value = "Current Video")
-	@OneToOne
-	@JoinColumn(name = "currentVideoId")
-	private Video currentVideo;
+	@ApiModelProperty(value = "Youtube Title")
+	@Column(nullable = false)
+	private String youtubeTitle;
+
+	@ApiModelProperty(value = "Youtube Thumbnails Url")
+	@Column(nullable = false)
+	private String youtubeThumbnailsUrl;
+
+	@ApiModelProperty(value = "Youtube Thumbnails Width")
+	@Column(nullable = false)
+	private Long youtubeThumbnailsWidth;
+
+	@ApiModelProperty(value = "Youtube Thumbnails Height")
+	@Column(nullable = false)
+	private Long youtubeThumbnailsHeight;
+
+	@ApiModelProperty(value = "Youtube Duration")
+	@Column(nullable = false)
+	private String youtubeDuration;
 
 	@ApiModelProperty(hidden = true)
 	@CreatedDate

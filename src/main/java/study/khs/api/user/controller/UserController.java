@@ -30,7 +30,7 @@ import study.khs.common.exception.InvalidFormException;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@ApiOperation(value = "일반 유저 가입", notes = "일반 유저 가입")
 	@RequestMapping(value = "/join", method = RequestMethod.POST)

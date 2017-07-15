@@ -6,11 +6,11 @@ import study.khs.common.constants.SystemConstants;
 public class InvalidFormException extends BaseException {
 
 	public InvalidFormException() {
-		this(SystemConstants.INVALID_FORM.getCode(), SystemConstants.INVALID_FORM.getDesc());
+		this(SystemConstants.WRONG_FORM.getCode(), SystemConstants.WRONG_FORM.getDesc());
 	}
 
 	public InvalidFormException(String message) {
-		this(SystemConstants.INVALID_FORM.getCode(), message);
+		this(SystemConstants.WRONG_FORM.getCode(), message);
 	}
 
 	public InvalidFormException(String code, String message) {

@@ -194,6 +194,7 @@ public class UserServiceImpl implements UserService {
 		return authorizationTokenDto;
 	}
 
+	@Override
 	public User getUser(Long userId) {
 
 		log.info("getUser userId=[{}]", userId);
@@ -205,6 +206,7 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Override
 	public User updateUser(UserUpdateRequestDto userUpdateRequestDto) {
 
 		log.info("updateUser userUpdateRequestDto=[{}]", userUpdateRequestDto);
@@ -224,6 +226,7 @@ public class UserServiceImpl implements UserService {
 		return savedUser;
 	}
 
+	@Override
 	public void deleteUser(Long userId) {
 
 		log.info("deleteUser userId=[{}]", userId);
