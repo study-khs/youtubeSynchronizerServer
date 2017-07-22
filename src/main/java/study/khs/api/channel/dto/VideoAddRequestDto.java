@@ -7,9 +7,6 @@ import lombok.Data;
 public class VideoAddRequestDto {
 
 	@ApiModelProperty(required = true)
-	private String channelId;
-
-	@ApiModelProperty(required = true)
 	private String youtubeId;
 
 	@ApiModelProperty(required = true)

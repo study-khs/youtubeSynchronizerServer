@@ -17,11 +17,27 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import study.khs.api.channel.dto.VideoAddRequestDto;
 
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Video {
+
+	public Video() {
+		super();
+	}
+
+	public Video(Long channelId, VideoAddRequestDto videoAddRequestDto) {
+		super();
+		this.channelId = channelId;
+		this.youtubeId = videoAddRequestDto.getYoutubeId();
+		this.youtubeTitle = videoAddRequestDto.getYoutubeTitle();
+		this.youtubeThumbnailsUrl = videoAddRequestDto.getYoutubeThumbnailsUrl();
+		this.youtubeThumbnailsWidth = videoAddRequestDto.getYoutubeThumbnailsWidth();
+		this.youtubeThumbnailsHeight = videoAddRequestDto.getYoutubeThumbnailsHeight();
+		this.youtubeDuration = videoAddRequestDto.getYoutubeDuration();
+	}
 
 	@ApiModelProperty(value = "Video Id")
 	@Id
@@ -30,7 +46,7 @@ public class Video {
 
 	@ApiModelProperty(value = "Channel Id")
 	@Column(nullable = false)
-	private String channelId;
+	private Long channelId;
 
 	@ApiModelProperty(value = "Youtube Id")
 	@Column(nullable = false)

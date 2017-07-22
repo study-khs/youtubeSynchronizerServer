@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import study.khs.api.channel.domain.Channel;
+import study.khs.api.channel.domain.Video;
 import study.khs.api.channel.dto.ChannelCreateRequestDto;
+import study.khs.api.channel.dto.VideoAddRequestDto;
 import study.khs.api.channel.repository.ChannelRepository;
 import study.khs.api.channel.repository.VideoRepository;
 import study.khs.common.dto.PageDto;
@@ -34,6 +36,14 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 
 	@Override
+	public Channel viewChannel(Long channelId) {
+
+		Channel channel = channelRepository.findOne(channelId);
+
+		return channel;
+	}
+
+	@Override
 	public PageDto<Channel> viewChannelList(int page, int size) {
 
 		Page<Channel> channelPage = channelRepository.findAll(new PageRequest(page - 1, size));
@@ -48,6 +58,34 @@ public class ChannelServiceImpl implements ChannelService {
 						.size(channelPage.getSize())//
 						.hasNext(channelPage.hasNext())//
 						.content(channelPage.getContent())//
+						.build();
+
+		return pageDto;
+	}
+
+	@Override
+	public Video createVideo(Long channelId, VideoAddRequestDto videoAddRequestDto) {
+
+		Video video = videoRepository.save(new Video(channelId, videoAddRequestDto));
+
+		return video;
+	}
+
+	@Override
+	public PageDto<Video> viewVideoList(int page, int size) {
+
+		Page<Video> videoPage = videoRepository.findAll(new PageRequest(page - 1, size));
+
+		if (!videoPage.hasContent()) {
+			throw new WrongPageRequestException();
+		}
+
+		PageDto<Video> pageDto = //
+				PageDto.<Video>builder()//
+						.page(videoPage.getNumber() + 1)//
+						.size(videoPage.getSize())//
+						.hasNext(videoPage.hasNext())//
+						.content(videoPage.getContent())//
 						.build();
 
 		return pageDto;
