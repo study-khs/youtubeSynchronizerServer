@@ -98,7 +98,7 @@ public class ChannelController {
 			@PathVariable Long channelId, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "10") int size) {
 
-		PageDto<Video> pageDto = channelService.viewVideoList(page, size);
+		PageDto<Video> pageDto = channelService.viewVideoList(channelId, page, size);
 
 		ApiResponseDto<PageDto<Video>> responseDto = //
 				ApiResponseDto.<PageDto<Video>>builder()//

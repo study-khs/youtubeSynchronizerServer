@@ -12,6 +12,8 @@ public enum SystemConstants {
 	WRONG_PASSWORD("User", "3100", "잘못된 비밀번호입니다."), //
 	USER_ALREADY_EXIST("User", "3200", "계정이 이미 존재합니다."), //
 
+	CHANNEL_ALREADY_EXIST("Channel", "3200", "채널이 이미 존재합니다."), //
+
 	;
 
 	private String type;

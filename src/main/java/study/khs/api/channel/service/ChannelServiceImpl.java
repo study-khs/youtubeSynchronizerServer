@@ -10,6 +10,7 @@ import study.khs.api.channel.domain.Channel;
 import study.khs.api.channel.domain.Video;
 import study.khs.api.channel.dto.ChannelCreateRequestDto;
 import study.khs.api.channel.dto.VideoAddRequestDto;
+import study.khs.api.channel.exception.ChannelAlreadyExistException;
 import study.khs.api.channel.repository.ChannelRepository;
 import study.khs.api.channel.repository.VideoRepository;
 import study.khs.common.dto.PageDto;
@@ -27,6 +28,12 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	public Channel createChannel(ChannelCreateRequestDto channelCreateRequestDto) {
+
+		Channel channel = channelRepository.findOneByChannelManagerId(channelCreateRequestDto.getChannelManagerId());
+
+		if (channel != null) {
+			throw new ChannelAlreadyExistException();
+		}
 
 		Channel createdChannel = channelRepository.save(new Channel(channelCreateRequestDto));
 
@@ -64,6 +71,12 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 
 	@Override
+	public void deleteChannel(Long channelId) {
+
+		channelRepository.delete(channelId);
+	}
+
+	@Override
 	public Video createVideo(Long channelId, VideoAddRequestDto videoAddRequestDto) {
 
 		Video video = videoRepository.save(new Video(channelId, videoAddRequestDto));
@@ -72,9 +85,17 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 
 	@Override
-	public PageDto<Video> viewVideoList(int page, int size) {
+	public Video viewVideo(Long videoId) {
 
-		Page<Video> videoPage = videoRepository.findAll(new PageRequest(page - 1, size));
+		Video video = videoRepository.findOne(videoId);
+
+		return video;
+	}
+
+	@Override
+	public PageDto<Video> viewVideoList(Long channelId, int page, int size) {
+
+		Page<Video> videoPage = videoRepository.findAllByChannelId(channelId, new PageRequest(page - 1, size));
 
 		if (!videoPage.hasContent()) {
 			throw new WrongPageRequestException();
@@ -89,5 +110,11 @@ public class ChannelServiceImpl implements ChannelService {
 						.build();
 
 		return pageDto;
+	}
+
+	@Override
+	public void deleteVideo(Long videoId) {
+
+		videoRepository.delete(videoId);
 	}
 }

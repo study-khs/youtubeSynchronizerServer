@@ -6,4 +6,5 @@ import study.khs.api.channel.domain.Channel;
 
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
 
+	Channel findOneByChannelManagerId(Long channelManagerId);
 }

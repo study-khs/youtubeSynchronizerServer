@@ -14,7 +14,13 @@ public interface ChannelService {
 
 	PageDto<Channel> viewChannelList(int page, int size);
 
+	void deleteChannel(Long channelId);
+
 	Video createVideo(Long channelId, VideoAddRequestDto videoAddRequestDto);
 
-	PageDto<Video> viewVideoList(int page, int size);
+	Video viewVideo(Long videoId);
+
+	PageDto<Video> viewVideoList(Long channelId, int page, int size);
+
+	void deleteVideo(Long videoId);
 }
